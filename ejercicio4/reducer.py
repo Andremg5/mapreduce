@@ -2,14 +2,14 @@
 
 import sys
 
-salesTotal = 0
+salesMax = 0
 oldKey = None
 
 # Loop around the data
 # It will be in the format key\tval
-# Where key is the store name, val is the sale amount
+# Where key is the category, val is the sale amount
 #
-# All the sales for a particular store will be presented,
+# All the sales for a particular category will be presented,
 # then the key will change and we'll be dealing with the next store
 
 for line in sys.stdin:
@@ -23,13 +23,14 @@ for line in sys.stdin:
     # Escribe un par key:value ante un cambio na key
     # Reinicia o total
     if oldKey and oldKey != thisKey:
-        print(oldKey+"\t"+str(salesTotal))
+        print(str(salesMax))
         oldKey = thisKey;
-        salesTotal = 0
+        salesMax = 0
 
     oldKey = thisKey
-    salesTotal += float(thisSale)
+    if salesMax < float(thisSale):
+        salesMax = float(thisSale)
 
 # Escribe o ultimo par, unha vez rematado o bucle
 if oldKey != None:
-    print(oldKey+"\t"+str(salesTotal))
+    print("Maximo ventas\t"+str(salesMax))
